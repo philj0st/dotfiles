@@ -2,18 +2,24 @@
 # see "man i3status" for documentation.
 
 general {
+        #output_format = "dzen2"
         colors = true
         interval = 5
 }
-
+order += "run_watch VPNC"
 order += "ipv4"
 order += "wireless wlan0"
 order += "battery 0"
 order += "disk /"
 order += "load"
 order += "memory"
-order += "tztime local"
 order += "tztime zurich"
+order += "tztime local"
+
+run_watch VPNC {
+        # file containing the PID of a vpnc process
+        pidfile = "/var/run/vpnc.pid"
+}
 
 wireless wlan0 {
         format_up = "%ip [%bitrate][%quality][%essid]"
@@ -32,15 +38,15 @@ battery 0 {
 }
 
 disk "/" {
-        format = "%avail"
+        format = "DS: %avail"
 }
 
 load {
-        format = "%1min"
+        format = "CPU: %5min"
 }
 
 memory {
-        format = "%used | %available"
+        format = "MEM: %used / %available"
         threshold_degraded = "1G"
         format_degraded = "MEMORY < %available"
 }
